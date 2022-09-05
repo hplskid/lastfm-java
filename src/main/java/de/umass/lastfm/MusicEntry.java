@@ -53,7 +53,7 @@ public abstract class MusicEntry extends ImageHolder {
 	protected int playcount;
 	protected int userPlaycount;
 	protected int listeners;
-	protected boolean streamable;
+	protected String streamable;
 	protected String id;
 
 	/**
@@ -70,10 +70,10 @@ public abstract class MusicEntry extends ImageHolder {
 	private float similarityMatch;
 
 	protected MusicEntry(String name, String url) {
-		this(name, url, null, -1, -1, false);
+		this(name, url, null, -1, -1, "FIXME");
 	}
 
-	protected MusicEntry(String name, String url, String mbid, int playcount, int listeners, boolean streamable) {
+	protected MusicEntry(String name, String url, String mbid, int playcount, int listeners, String streamable) {
 		this.name = name;
 		this.url = url;
 		this.mbid = mbid;
@@ -106,7 +106,7 @@ public abstract class MusicEntry extends ImageHolder {
 		return userPlaycount;
 	}
 
-	public boolean isStreamable() {
+	public String isStreamable() {
 		return streamable;
 	}
 
@@ -212,7 +212,6 @@ public abstract class MusicEntry extends ImageHolder {
 				.parseInt(listenersString);
 		// streamable
 		String s = element.getChildText("streamable");
-		boolean streamable = s != null && s.length() != 0 && Integer.valueOf(1).equals(maybeParseInt(s));
 		// copy
 		entry.name = element.getChildText("name");
 		entry.url = element.getChildText("url");
@@ -220,7 +219,7 @@ public abstract class MusicEntry extends ImageHolder {
 		entry.playcount = playcount;
 		entry.userPlaycount = userPlaycount;
 		entry.listeners = listeners;
-		entry.streamable = streamable;
+		entry.streamable = s;
 		// tags
 		DomElement tags = element.getChild("tags");
 		if (tags == null)

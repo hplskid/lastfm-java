@@ -83,7 +83,7 @@ public class Track extends MusicEntry {
 		this.artist = artist;
 	}
 
-	protected Track(String name, String url, String mbid, int playcount, int listeners, boolean streamable,
+	protected Track(String name, String url, String mbid, int playcount, int listeners, String streamable,
 					String artist, String artistMbid, boolean fullTrackAvailable, boolean nowPlaying) {
 		super(name, url, mbid, playcount, listeners, streamable);
 		this.artist = artist;
@@ -189,6 +189,20 @@ public class Track extends MusicEntry {
 	 */
 	public static Collection<Track> search(String track, String apiKey) {
 		return search(null, track, 30, apiKey);
+	}
+
+	/**
+	 * Searches for a track with the given name and returns a first possible match.
+	 *
+	 * @param track Track name
+	 * @param apiKey The API key
+	 * @return a first possible match
+	 * @see #search(String, String, int, String)
+	 */
+	public static Track searchOne(String track, String apiKey) {
+		Collection<Track> tracks = search(null, track, 1,  apiKey);
+
+		return tracks.iterator().next();
 	}
 
 	/**
@@ -747,11 +761,13 @@ public class Track extends MusicEntry {
 				long utsTime = Long.parseLong(uts);
 				track.playedWhen = new Date(utsTime * 1000);
 			}
+
 			DomElement stream = element.getChild("streamable");
 			if (stream != null) {
 				String s = stream.getAttribute("fulltrack");
 				track.fullTrackAvailable = s != null && Integer.parseInt(s) == 1;
 			}
+
 			return track;
 		}
 	}

@@ -42,8 +42,8 @@ public class User extends ImageHolder {
 	static final ItemFactory<User> FACTORY = new UserFactory();
 
 	private String id;
-	private String name;
-	private String url;
+	private final String name;
+	private final String url;
 
 	private String realname;
 

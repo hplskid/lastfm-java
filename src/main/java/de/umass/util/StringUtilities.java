@@ -42,8 +42,8 @@ import java.util.regex.Pattern;
 public final class StringUtilities {
 
 	private static MessageDigest digest;
-	private static Pattern MBID_PATTERN = Pattern
-			.compile("^[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}$",
+	private static final Pattern MBID_PATTERN = Pattern
+			.compile("^[0-9a-f]{8}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{12}$",
 					Pattern.CASE_INSENSITIVE);
 	private static final Pattern MD5_PATTERN = Pattern.compile("[a-fA-F0-9]{32}");
 
